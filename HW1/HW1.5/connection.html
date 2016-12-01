@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Stanford Connection</title>
+  <style>
+
+    #all {
+      width: 2000px;
+    }
+    h1 {
+      background-color: #9A0000;
+      color: white;
+      text-align: left;
+      font-size: 50pt;
+      float: left;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 11px;
+    }
+
+    #left {
+      width: 1000px;
+      height: 900px;
+      border: 1px solid white;
+      margin: 0px 10px;
+      overflow: hidden;
+      float: left;
+    }
+    #innerRight {
+      width: 480px;
+      height: 500px;
+      border: 1px solid white;
+      margin: 0px;
+      padding-left: 10px;
+      overflow: hidden;
+      float: left;
+    }
+    .right {
+      width: 280px;
+      height: 500px;
+      border: 1px solid white;
+      margin: 0px 10px;
+      padding-left: 10px;
+      padding-top: 35px;
+      overflow: hidden;
+      float: left;
+    }
+    .bod {
+      border: 1px solid black;
+      border-left: none;
+      border-right: none;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    h2 {
+      border: 2px solid black;
+      border-left: none;
+      border-right: none;
+      padding-left: 15px;
+      background-color: #CC9191;
+    }
+    h3 {
+      font-size: 30pt;
+    }
+    #top {
+      border: 1px solid black;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      padding-top: 5px;
+    }
+    #textfield {
+      width: 270px;
+      height: 150px;
+      font-size: 15pt;
+      font-family: sans-serif;
+    }
+    #button {
+      display: block;
+      height: 20px;
+      width: 200px;
+      background: #F0F0F0;
+      border: 2px solid #B8B8B8;
+      margin-top: 20px;
+      background: linear-gradient(top, #34696f, #2f5f63);
+      border-radius: 50px;
+      box-shadow: 0 2px 0 #1b383b;
+      text-shadow: 0 2px 2px rgba(100, 100, 100, 0.1);
+      text-decoration: none;
+      text-align: center;
+      color: black;
+    }
+    #button:hover {
+      background: #B8B8B8 ;
+    }
+    #treeimg {
+      vertical-align: middle;
+    }
+
+  </style>
+</head>
+
+<body>
+<div id="all">
+  <div id="left">
+    <div id="banner">
+      <h1>Stanford Connection<img id="treeimg" src="tree-logo.gif" alt="Fear the tree" height="92" width="91"></h1>
+    </div>
+    <div class="right">
+      <img src="molly.jpg" alt="molly" height="250" width="300"/>
+      <h2>About Me</h2>
+      <p><strong>Birthday</strong>: December 8, 2001<br><strong>Gender</strong>: Female<p>
+      <h2>Friends</h2>
+      <p><strong>Patrick Young</strong><br><strong>Chloe Cox</strong></p>
+    </div>
+    <div id="innerRight">
+      <h3>Molly the FloPup</h3>
+      <h2>Status Update</h2>
+      <div id="top"><p>When an I going to get feed?</p></div>
+      <div class="bod"><p>I want to go for a walk</p></div>
+      <p>There is a squirrel on the patio</p>
+      <div class="bod"><p>I really like summer, becaue I get to sun myself</p></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <h2>Post Updates</h2>
+    <input type="text" id="textfield">
+    <a id="button" href="#">Submit New Update</a>
+  </div>
+</div>
+</body>

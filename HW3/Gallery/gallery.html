@@ -1,0 +1,152 @@
+<!--
+  Reference:
+  Lecture downloads
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Stanford Gallery</title>
+<style>
+#caption {
+	padding: 10px;
+	width: 800px;
+	box-sizing: border-box;
+	color: white;
+	font-size: 14pt;
+	font-family: sans-serif;
+	background-color: #008800;
+	opacity: 0.5;
+}
+
+#photoSection {
+	position: absolute;
+}
+
+#caption {
+	position:absolute;
+	bottom: 0px;
+	left: 0px;
+}
+
+#forwardOverlay {
+	position:absolute;
+	top: 0px;
+	right: 0px;
+	width: 400px;
+	height: 600px;
+}
+
+#backwardOverlay {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	width: 400px;
+	height: 600px;
+}
+
+#arrowL {
+	position:absolute;
+	top: 230px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	visibility: hidden;
+}
+
+#arrowR {
+	position:absolute;
+	top: 230px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	visibility: hidden;
+}
+</style>
+</head>
+<body>
+<div id="photoSection">
+	<img id='photo' src='memchu.jpg' alt='photo' />
+	<div id="caption">
+	Stanford Memorial Church - the church used to have an 80' bell tower, which fell in the 1906 earthquake.
+	</div>
+	<img id='arrowL' src='left.jpg' alt='photo' />
+	<img id='arrowR' src='right.jpg' alt='photo' />
+	<div id="forwardOverlay" onclick="moveFwd()" onmouseover="showRight()" onmouseout="hideRight()"></div>
+	<div id="backwardOverlay" onclick="moveBwd()" onmouseover="showLeft()" onmouseout="hideLeft()"></div>
+</div>
+<script>
+	"use strict";
+
+	var photoArray = [
+			{filename: "memchu.jpg",
+			 caption: "Stanford Memorial Church - the church used to have an 80' bell tower, which fell in the 1906 earthquake."},
+			{filename: "quad.jpg",
+			 caption: "The Stanford Quad"},
+			{filename: "hoop.jpg",
+			 caption: "The <i>Red Hoop Fountain</i> with Green Library in the background."},
+			{filename: "memorial-court.jpg",
+			 caption: "Memorial Court (in the front of the Quad) with Rodin's <i>Burghers of Calais</i> statues."},
+			{filename: "gates.jpg",
+			 caption: "The Gates Building - home of Stanford Computer Science."},
+			{filename: "stone-river.jpg",
+			 caption: "The Stone River statue near the Cantor Arts Center (Stanford's own art museum)."},
+		];
+
+		function setup() {
+			var pictureLRMargin = (window.innerWidth - 800) / 2;
+			var pictureTBMargin = (window.innerHeight - 600) / 2;
+			document.getElementById("photoSection").style.top = pictureTBMargin + "px";
+			document.getElementById("photoSection").style.bottom = pictureTBMargin + "px";
+			document.getElementById("photoSection").style.left = pictureLRMargin + "px";
+			document.getElementById("photoSection").style.right = pictureLRMargin + "px";
+		}
+
+		var index = [5, 4, 3, 2, 1];
+		var temp = 0;
+		function moveFwd() {
+			index.unshift(temp);
+			temp = index.pop();
+		  var image = document.getElementById("photo");
+		  image.setAttribute("src", photoArray[temp].filename);
+		  var capt = photoArray[temp].caption;
+		  document.getElementById("caption").innerHTML = capt;
+		}
+
+		function moveBwd() {
+			index.push(temp);
+			temp = index.shift();
+		  var image = document.getElementById("photo");
+		  image.setAttribute("src", photoArray[temp].filename);
+		  var capt = photoArray[temp].caption;
+		  document.getElementById("caption").innerHTML = capt;
+		}
+
+		function showRight() {
+			var elem = document.getElementById("arrowR");
+			elem.style.visibility = "visible";
+		}
+
+		function hideRight() {
+			var elem = document.getElementById("arrowR");
+			elem.style.visibility = "hidden";
+		}
+
+		function showLeft() {
+			var elem = document.getElementById("arrowL");
+			elem.style.visibility = "visible";
+		}
+
+		function hideLeft() {
+			var elem = document.getElementById("arrowL");
+			elem.style.visibility = "hidden";
+		}
+
+		window.addEventListener("load", setup);
+		window.addEventListener("resize", setup, false);
+
+
+</script>
+</body>
+</html>

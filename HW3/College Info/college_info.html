@@ -1,0 +1,356 @@
+<!--
+  Reference:
+  CSS3: The Missing Manual, Third Edition
+  stackoverflow: Removing border from table cell; get textbox value
+-->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8"/>
+  <title>College Info</title>
+  <style>
+    .stats {
+      border-collapse: collapse;
+      font-family: sans-serif;
+      float: left;
+      margin-right: 50px;
+    }
+    #search {
+      font-family: sans-serif;
+      border-collapse: collapse;
+      width: 350px;
+    }
+    td, th {
+      padding: 5px 10px;
+      border:1px solid black;
+    }
+    th {
+      text-align: center;
+      background-color: #606060;
+      color: white;
+    }
+    .stats tr:nth-of-type(2n) {background-color: #EEE;}
+    #search {
+      border: 1px solid #AAA;
+      border-collapse: collapse;
+    }
+    #search td {border: none;}
+    p {
+      font-size: 8pt;
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+    #submitButton {
+      position: absolute;
+      top: 340px;
+      left: 470px;
+    }
+    .sameB {
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+    #searchBox1 {margin-left: 75px;}
+    #searchBox2 {margin-left: 55px;}
+    #searchBox3 {margin-left: 60px;}
+    #dup {visibility: hidden;}
+    .allStatsTable {
+      border: 1px solid white;
+      width: 460px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bay Area Colleges and Universities</h1>
+
+  <div class="allStatsTable" id="original">
+  <table class="stats">
+    <thead>
+      <tr>
+        <th class="col">Name</th>
+        <th class="col">SAT High</th>
+        <th class="col">SAT Low</th>
+        <th class="col">Tuition</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Stanford</td>
+        <td>1570</td>
+        <td>1380</td>
+        <td>44757</td>
+      </tr>
+      <tr>
+        <td>UC Berkeley</td>
+        <td>1500</td>
+        <td>1250</td>
+        <td>13844</td>
+      </tr>
+      <tr>
+        <td>UC Santa Cruz</td>
+        <td>1280</td>
+        <td>1000</td>
+        <td>13398</td>
+      </tr>
+      <tr>
+        <td>SFSU</td>
+        <td>1110</td>
+        <td>880</td>
+        <td>6468</td>
+      </tr>
+      <tr>
+        <td>S JSU</td>
+        <td>1160</td>
+        <td>880</td>
+        <td>9496</td>
+      </tr>
+      <tr>
+        <td>Sonoma State</td>
+        <td>1090</td>
+        <td>880</td>
+        <td>7276</td>
+      </tr>
+      <tr>
+        <td>CalState East Bay</td>
+        <td>1010</td>
+        <td>800</td>
+        <td>6550</td>
+      </tr>
+      <tr>
+        <td>USF</td>
+        <td>1270</td>
+        <td>1070</td>
+        <td>41450</td>
+      </tr>
+      <tr>
+        <td>SCU</td>
+        <td>1380</td>
+        <td>1190</td>
+        <td>43812</td>
+      </tr>
+      <tr>
+        <td>Mills College</td>
+        <td>1250</td>
+        <td>1040</td>
+        <td>42918</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div id=allSearchTable>
+  <table id="search">
+    <tr>
+      <th>Search Criteria</th>
+    </tr>
+      <tr>
+        <td>
+          <input type="radio" id="publicButton" name="sameB" value="" onclick="calcPub();" />
+          Public
+          <input type="radio" id="privateButton" name="sameB" value="" onclick="calcPri();" />
+          Private
+          <input type="radio" checked="checked" id="nocareButton" name="sameB" value="" onclick="calcCare();" />
+          Don't Care
+        </td>
+      </tr>
+      <tr>
+        <td>Maximun Tuition<span id="searchBox1"><input type="text" size=20 name="s1" value="" /></span><p>leave blank for don't care</p></td>
+      </tr>
+      <tr>
+        <td>Maximun High SAT<span id="searchBox2"><input type="text" size=20 name="s2" value="" /></span><p>leave blank for don't care</p></td>
+      </tr>
+      <tr>
+        <td>Maximun Low SAT<span id="searchBox3"><input type="text" size=20 name="s3" value="" /></span><p>leave blank for don't care</p></td>
+      </tr>
+  </table>
+    <div id="submitButton">
+      <input type="button" id="update" value="Update" onclick="updateForm();" />
+    </div>
+  </div>
+
+  <div class="allStatsTable" id = "dup">
+  <table class="stats">
+    <thead>
+      <tr>
+        <th class="col">Name</th>
+        <th class="col">SAT High</th>
+        <th class="col">SAT Low</th>
+        <th class="col">Tuition</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Stanford</td>
+        <td>1570</td>
+        <td>1380</td>
+        <td>44757</td>
+      </tr>
+      <tr>
+        <td>UC Berkeley</td>
+        <td>1500</td>
+        <td>1250</td>
+        <td>13844</td>
+      </tr>
+      <tr>
+        <td>UC Santa Cruz</td>
+        <td>1280</td>
+        <td>1000</td>
+        <td>13398</td>
+      </tr>
+      <tr>
+        <td>SFSU</td>
+        <td>1110</td>
+        <td>880</td>
+        <td>6468</td>
+      </tr>
+      <tr>
+        <td>S JSU</td>
+        <td>1160</td>
+        <td>880</td>
+        <td>9496</td>
+      </tr>
+      <tr>
+        <td>Sonoma State</td>
+        <td>1090</td>
+        <td>880</td>
+        <td>7276</td>
+      </tr>
+      <tr>
+        <td>CalState East Bay</td>
+        <td>1010</td>
+        <td>800</td>
+        <td>6550</td>
+      </tr>
+      <tr>
+        <td>USF</td>
+        <td>1270</td>
+        <td>1070</td>
+        <td>41450</td>
+      </tr>
+      <tr>
+        <td>SCU</td>
+        <td>1380</td>
+        <td>1190</td>
+        <td>43812</td>
+      </tr>
+      <tr>
+        <td>Mills College</td>
+        <td>1250</td>
+        <td>1040</td>
+        <td>42918</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+  <script>
+    var univArray = new Array(
+        {name: "Stanford University", nickname: "Stanford", ownership: "private", SATh: 1570, SATl: 1380, tuition: 44757},
+        {name: "University of California, Berkeley", nickname: "UC Berkeley", ownership: "public", SATh: 1500, SATl: 1250, tuition: 13844},
+        {name: "University of California, Santa Cruz", nickname: "UC Santa Cruz", ownership: "public", SATh: 1280, SATl: 1000, tuition: 13398},
+        {name: "San Francisco State University", nickname: "SFSU", ownership: "public", SATh: 1110, SATl: 880, tuition: 6468},
+        {name: "San Jose State University", nickname: "S JSU", ownership: "public", SATh: 1160, SATl: 880, tuition: 9496},
+        {name: "Sonoma State University", nickname: "Sonoma State", ownership: "public", SATh: 1090, SATl: 880, tuition: 7276},
+        {name: "California State University, East Bay", nickname: "CalState East Bay", ownership: "public", SATh: 1010, SATl: 800, tuition: 6550, room: 6435},
+        {name: "University of San Francisco", nickname: "USF", ownership: "private", SATh: 1270, SATl: 1070, tuition: 41450},
+        {name: "Santa Clara University", nickname: "SCU", ownership: "private", SATh: 1380, SATl: 1190, tuition: 43812},
+        {name: "Mills College", nickname: "Mills College", ownership: "private", SATh: 1250, SATl: 1040, tuition: 42918}
+    );
+
+    function updateColor(cl) {
+        for(var i = 0; i < cl.length; i++) {
+            if((i+1)%2 !== 0) cl[i].style.backgroundColor = "Gansboro";
+        }
+    }
+
+    function calcPub() {
+       calcCare();
+       var privates = [];
+       for(var i = 0; i < univArray.length; i++) {
+         if(univArray[i].ownership=="private") {
+           privates.push(univArray[i].nickname);
+         }
+       }
+       var rows = document.getElementById("original").getElementsByTagName("tr");
+       for(var k = 0; k < privates.length; k++) {
+         for(var j = 0; j < rows.length; j++) {
+           if(rows[j].childNodes[1].innerHTML==privates[k]) {
+             rows[j].parentNode.removeChild(rows[j]);           }
+         }
+      }
+      updateColor(rows);
+    }
+
+    function calcPri() {
+      calcCare();
+      var publics = [];
+      for(var i = 0; i < univArray.length; i++) {
+        if(univArray[i].ownership=="public") {
+          publics.push(univArray[i].nickname);
+        }
+      }
+      var rows = document.getElementById("original").getElementsByTagName("tr");
+      for(var k = 0; k < publics.length; k++) {
+        for(var j = 0; j < rows.length; j++) {
+          if(rows[j].childNodes[1].innerHTML==publics[k]) {
+            rows[j].parentNode.removeChild(rows[j]);
+          }
+        }
+     }
+     updateColor(rows);
+    }
+
+    function calcCare() {
+      document.getElementById("original").innerHTML = "";
+      document.getElementById("original").innerHTML = document.getElementById("original").innerHTML + document.getElementById("dup").innerHTML;
+    }
+
+    function updateForm() {
+      var rem = [];
+      var num = parseInt(document.getElementsByName("s1")[0].value);
+      var rows = document.getElementById("original").getElementsByTagName("tr");
+      for(var i = 0; i < rows.length; i++) {
+        if(rows[i].childNodes[7].innerHTML > num) {
+          rem.push(i);
+        }
+      }
+      while(rem.length > 0) {
+        var temp = rem.pop();
+        rows[temp].parentNode.removeChild(rows[temp]);
+      }
+
+      var rem1 = [];
+      var num1 = parseInt(document.getElementsByName("s2")[0].value);
+      var rows1 = document.getElementById("original").getElementsByTagName("tr");
+      for(var i = 0; i < rows1.length; i++) {
+        if(rows1[i].childNodes[3].innerHTML > num1) {
+          rem1.push(i);
+        }
+      }
+      while(rem1.length > 0) {
+        var temp1 = rem1.pop();
+        rows1[temp1].parentNode.removeChild(rows1[temp1]);
+      }
+
+
+      var rem2 = [];
+      var num2 = parseInt(document.getElementsByName("s3")[0].value);
+      var rows2 = document.getElementById("original").getElementsByTagName("tr");
+      for(var i = 0; i < rows2.length; i++) {
+        if(rows2[i].childNodes[5].innerHTML > num2) {
+          rem2.push(i);
+        }
+      }
+      while(rem2.length > 0) {
+        var temp2 = rem2.pop();
+        rows2[temp2].parentNode.removeChild(rows2[temp2]);
+      }
+      updateColor(rows2);
+    }
+
+  </script>
+
+</body>

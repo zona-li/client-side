@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8"/>
+  <title>Zebra form</title>
+  <style>
+    h1, caption {font-family: serif;}
+    td, th {border:1px solid black;}
+    table {border-collapse: collapse; font-family: sans-serif;}
+    td, th {padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;}
+    th {text-align: left; background-color: black; color: white;}
+    #whiteB {border-right-color: white;}
+    #caption {
+      text-align: left;
+      margin-top: 15px;
+      caption-side: bottom;
+      }
+    #table {font-family: sans-serif;}
+    tr:nth-of-type(2n) {background-color: #EEE;}
+  </style>
+</head>
+
+<body>
+  <h1>Geographic Origin of Stanford Undergrads</h1>
+
+  <table id="table">
+
+    <caption id="caption">
+      <em>Source: Stanford Facts Website</em>
+    </caption>
+    
+    <colgroup>
+      <col class="Geographic Origin" />
+      <col class="Number of Students" />
+    </colgroup>
+
+    <thead>
+      <tr>
+        <th scope="col" id=whiteB>Geographic Origin</th>
+        <th scope="col">Number of Students</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>California</td>
+        <td>2,943</td>
+      </tr>
+      <tr>
+        <td>Other US</td>
+        <td>3,447</td>
+      </tr>
+      <tr>
+        <td>Asia</td>
+        <td>264</td>
+      </tr>
+      <tr>
+        <td>The Americas</td>
+        <td>83</td>
+      </tr>
+      <tr>
+        <td>Europe</td>
+        <td>69</td>
+      </tr>
+      <tr>
+        <td>Africa</td>
+        <td>44</td>
+      </tr>
+      <tr>
+        <td>Middle East and North Africa</td>
+        <td>22</td>
+      </tr>
+      <tr>
+        <td>Pacific Basin</td>
+        <td>6</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>

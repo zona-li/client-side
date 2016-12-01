@@ -1,0 +1,68 @@
+<!--
+Referece:
+Lecture notes and downloads
+CSS-Tricks: textarea tricks, button.
+JavaScript: The Definitive Guide 6 edition.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bookland</title>
+  <link type="text/css" rel="stylesheet" href="bookland.css" />
+  <script>
+    function clearInfo() {
+      document.getElementById("searchBox").reset();
+    }
+    function findBook() {
+      var description;
+      var book0 = ["Thomas Mann", "Death in Venice", "One of the most famous literary works of the twentieth century, this novella embodies themes that preoccupied Thomas Mann in much of his work: the duality of art and life, the presence of death and disintegration in the midst of existence, the connection between love and suffering and the conflict between the artist and his inner self."];
+      var book1 = ["James Joyce", "A portrait of the artist as a young man", "This book is a fictional re-creation of the Irish writer's own life and early environment. The experiences of the novel's young hero, unfold in astonishingly vivid scenes that seem freshly recalled from life and provide a powerful portrait of the coming of age of a young man of unusual intelligence, sensitivity and character."];
+      var book2 = ["E. M. Forster", "A room with a view", "This work displays an unusually perceptive view of British society in the early 20th century.It is a social comedy set in Florence, Italy, and Surrey, England. Its heroine, Lucy Honeychurch, struggling against straitlaced Victorian attitudes of arrogance, narroe mindedness and sobbery, falls in love - while on holiday in Italy - with the socially unsuitable George Emerson."];
+      var book3 = ["Isabel Allende", "The house of spirits", "Allende describes the life of three generations of a prominent family in Chile and skillfully combines with this all the main historical events of the time, up until Pinochet's dictatorship."]
+      var book4 = ["Isabel Allende", "Of love and shadows", "The whole world of Irene Beltran, a young reporter in Chile at the time of the dictatorship, is destroyed when she discovers a series of killings carried out by government soldiers. With the help of a photographer, Francisco Leal, and risking her life, she tries to come up with evidence against the dictatorship."];
+      var books = [book0, book1, book2, book3, book4];
+
+      for (var i = 0; i < books.length; i++) {
+        if (document.getElementById("author").value == "Isabel Allende" && document.getElementById("title").value == "Of love and shadows") {
+          description = books[4][2];
+          document.getElementById("des").value = description;
+          break;
+        }
+        else if (document.getElementById("author").value == "Isabel Allende") {
+          document.getElementById("des").value = "BOOK 1: The house of spirits. " + books[3][2] + " BOOK 2: Of love and shadows. " + books[4][2];
+          break;
+        }
+        else if (books[i][0] == document.getElementById("author").value) {
+          description = "BOOK: " + books[i][1] + ". " + books[i][2];
+          document.getElementById("des").value = description;
+          break;
+        }
+        else if (books[i][1] == document.getElementById("title").value) {
+          description = "AUTHOR: " + books[i][0] + ". " + books[i][2];
+          document.getElementById("des").value = description;
+          break;
+        }
+        else document.getElementById("des").value = "Book Not Found";
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <div id="all">
+  <h1>bookland</h1>
+    <form id="searchBox">
+      <label id="AN">Author name:</label>
+      <input type="text" class="search" id="author"/><br/>
+      <label id="BT">Book title:</label>
+      <input type="text" class="search" id="title"/><br/>
+      <input type="button" class="b" value="Find book" onclick="findBook();"/>
+      <input type="button" class="b" value="Clear Info" onclick="clearInfo();"/><br/>
+      <textarea rows="10" cols="100" id="des" placeholder="Description of the book:"></textarea>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!--
+  Reference:
+  Lecture downloads
+  Piazza
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    #buttons {
+      position: absolute;
+      right: 300px;
+      top: 100px;
+    }
+    input[name="plus"] {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+    input[name="minus"] {
+      position: absolute;
+      top: 0px;
+      left: 35px;
+    }
+    input[name="up"] {
+      position: absolute;
+      top: 40px;
+      left: 15px;
+    }
+    input[name="left"] {
+      position: absolute;
+      top: 60px;
+      left: -15px;
+    }
+    input[name="right"] {
+      position: absolute;
+      top: 60px;
+      left: 45px;
+    }
+    input[name="down"] {
+      position: absolute;
+      top: 80px;
+      left: 15px;
+    }
+  </style>
+  <title>Stanford Map</title>
+</head>
+
+
+<body>
+  <div id="mapDiv" style="position: absolute; top: 70px; left: 70px; overflow: hidden; border: solid 20px #990000;">
+    <div id="mapImage" style="position: absolute; top: 0px; left: 0px;"><img id="map" src="map-m.gif" alt="Map" /></div>
+  </div>
+  <form id="buttons">
+    <input type="button" name="plus" value="+" onclick="enlarge()">
+    <input type="button" name="minus" value="-" onclick="contract()">
+    <input type="button" name="up" value="^" onclick="moveUp()">
+    <input type="button" name="left" value="<" onclick="moveLeft()">
+    <input type="button" name="down" value="v" onclick="moveDown()">
+    <input type="button" name="right" value=">" onclick="moveRight()">
+  </form>
+
+  <script>
+    function getFrameHeight() {
+    	var mapDiv = document.getElementById("mapDiv");
+    	return parseInt(mapDiv.style.height);
+    }
+
+    function getFrameWidth() {
+    	var mapDiv = document.getElementById("mapDiv");
+    	return parseInt(mapDiv.style.width);
+    }
+
+    //check if clicking is in the frame (not including on the frame)
+    function inFrame(x,y) {
+    	return (x >= 90 && x <= 90 + getFrameWidth()
+    				&& y >= 90 && y <= 90 + getFrameHeight());
+    }
+
+    //Dragging
+    var isDragging = false;
+    var toLeftFrame;
+    var toTopFrame;
+    var movedLeft = "";
+    var movedTop = "";
+    var currLeft = "";
+    var currTop = "";
+    var hri = "";
+    var vrti = "";
+    function whenMouseDown(evt) {
+      toLeftFrame = evt.clientX - 90;
+      toTopFrame = evt.clientY - 90;
+    	if (inFrame(evt.clientX,evt.clientY)) {
+    		isDragging = true;
+    		evt.preventDefault();
+    	}
+    }
+
+    function whenMouseUp(evt) {
+      document.getElementById("mapImage").style.cursor = "initial";
+    	if (isDragging) {
+    		var mapImage = document.getElementById("mapImage");
+    		mapImage.style.left = (evt.clientX - 90 - toLeftFrame + movedLeft + hri - leftNum + rightNum - target2L + target2L2) + "px";
+    		mapImage.style.top = (evt.clientY - 90 - toTopFrame + movedTop + vrti - upNum + downNum - target2T + target2T2) + "px";
+
+    		isDragging = false;
+    	}
+      movedLeft = parseInt(document.getElementById("mapImage").style.left);
+      movedTop = parseInt(document.getElementById("mapImage").style.top);
+      hri = 0;
+      vrti = 0;
+      upNum = 0;
+      downNum = 0;
+      leftNum = 0;
+      rightNum = 0;
+      target2L = 0;
+      target2T = 0;
+      target2L2 = 0;
+      target2T2 = 0;
+    }
+
+    function whenMouseMove(evt) {
+    	if (isDragging) {
+        document.getElementById("mapImage").style.cursor = "move";
+    		var mapImage = document.getElementById("mapImage");
+    		mapImage.style.left = (evt.clientX - 90 - toLeftFrame + movedLeft + hri - leftNum + rightNum - target2L + target2L2) + "px";
+    		mapImage.style.top = (evt.clientY - 90 - toTopFrame + movedTop + vrti - upNum + downNum - target2T + target2T2) + "px";
+    		evt.preventDefault();
+    	}
+    }
+
+    function handleDblClick(evt) {
+      if (inFrame(evt.clientX,evt.clientY)) {
+        var mapImage = document.getElementById("mapImage");
+        hri = getFrameWidth()/2 - evt.clientX + 90;
+        vrti = getFrameHeight()/2 - evt.clientY + 90;
+        currLeft = parseInt(mapImage.style.left);
+        currTop = parseInt(mapImage.style.top);
+        mapImage.style.left = (currLeft + hri - target2L) + "px";
+        mapImage.style.top = (currTop + vrti - target2T) + "px";
+    	}
+      target2L = 0;
+      target2T = 0;
+      target2L2 = 0;
+      target2T2 = 0;
+    }
+
+    ///Zooming
+    //Pre-load images
+    var picStyle = new Array(
+      {pwidth: "1283px", pheight: "997px"},
+      {pwidth: "2047px", pheight: "1589px"},
+      {pwidth: "3063px", pheight: "2373px"},
+      {pwidth: "4084px", pheight: "3164px"}
+    );
+    var picArray = new Array("map-s.gif","map-m.gif","map-l.gif","map-xl.gif");
+    var imageArray = new Array();
+    for(var i = 0; i < picArray.length; i++) {
+    	imageArray[i] = new Image();
+    	imageArray[i].src = picArray[i];
+      imageArray[i].style.width = picStyle[i].pwidth;
+      imageArray[i].style.height = picStyle[i].pheight;
+    }
+
+    var currPic = 1;
+    var target2T = 0;
+    var target2L = 0;
+    var x = 0;
+    var y = 0;
+    function enlarge() {
+      var mapImage = document.getElementById("mapImage");
+      x = (parseInt(getFrameHeight())/2 + Math.abs(parseInt(mapImage.style.top))) * parseInt(imageArray[currPic+1].style.width) / parseInt(imageArray[currPic].style.width);
+      y = (parseInt(getFrameWidth())/2 + Math.abs(parseInt(mapImage.style.left))) * parseInt(imageArray[currPic+1].style.width) / parseInt(imageArray[currPic].style.width);
+      currPic = currPic+1;
+      if (currPic >= picArray.length) {
+        currPic = currPic - 1;
+        return null;
+      }
+      target2T = x - (parseInt(getFrameHeight())/2 + Math.abs(parseInt(mapImage.style.top)));
+      target2L = y - (parseInt(getFrameWidth())/2 + Math.abs(parseInt(mapImage.style.left)));
+      document.getElementById("map").src = picArray[currPic];
+      mapImage.style.left = (parseInt(mapImage.style.left) - target2L) + "px";
+      mapImage.style.top = (parseInt(mapImage.style.top) - target2T) + "px";
+    }
+
+    var target2T2 = 0;
+    var target2L2 = 0;
+    var x2 = 0;
+    var y2 = 0;
+    function contract() {
+      var mapImage = document.getElementById("mapImage");
+      x2 = (parseInt(getFrameHeight())/2 + Math.abs(parseInt(mapImage.style.top))) * parseInt(imageArray[currPic-1].style.width) / parseInt(imageArray[currPic].style.width);
+      y2 = (parseInt(getFrameWidth())/2 + Math.abs(parseInt(mapImage.style.left))) * parseInt(imageArray[currPic-1].style.width) / parseInt(imageArray[currPic].style.width);
+      currPic = currPic - 1;
+      if (currPic < 0) {
+        currPic = currPic + 1;
+        return null;
+      }
+      target2T2 = (parseInt(getFrameHeight())/2 + Math.abs(parseInt(mapImage.style.top))) - x2;
+      target2L2 = (parseInt(getFrameWidth())/2 + Math.abs(parseInt(mapImage.style.left))) - y2;
+      document.getElementById("map").src = picArray[currPic];
+      mapImage.style.left = (parseInt(mapImage.style.left) + target2L2) + "px";
+      mapImage.style.top = (parseInt(mapImage.style.top) + target2T2) + "px";
+    }
+
+    //Navigation
+    var upNum = 0;
+    function moveUp() {
+      var upto = getFrameHeight()/2;
+      mapImage.style.top = (parseInt(mapImage.style.top) - upto) + "px";
+      upNum = upNum + upto;
+    }
+
+    var leftNum = 0;
+    function moveLeft() {
+      var leftto = getFrameWidth()/2;
+      mapImage.style.left = (parseInt(mapImage.style.left) - leftto) + "px";
+      leftNum = leftNum + leftto;
+    }
+
+    var downNum = 0;
+    function moveDown() {
+      var downto = getFrameHeight()/2;
+      mapImage.style.top = (parseInt(mapImage.style.top) + downto) + "px";
+      downNum = downNum + downto;
+    }
+
+    var rightNum = 0;
+    function moveRight() {
+      var rightto = getFrameWidth()/2;
+      mapImage.style.left = (parseInt(mapImage.style.left) + rightto) + "px";
+      rightNum = rightNum + rightto;
+    }
+
+    function checkMoveLeft() {
+      return leftTimes * getFrameWidth()/2;
+    }
+
+    function checkMoveRight() {
+      return rightTimes * getFrameWidth()/2;
+    }
+
+    function checkMoveDown() {
+      return downTimes * getFrameHeight()/2;
+    }
+
+    function checkMoveUp() {
+      return upTimes * getFrameHeight()/2;
+    }
+
+
+
+    function setup() {
+      var divHeight = (window.innerHeight - 180);
+      var divWidth = (window.innerWidth - 500);
+      document.getElementById("mapDiv").style.height = divHeight + "px";
+      document.getElementById("mapDiv").style.width = divWidth + "px";
+    }
+
+    window.addEventListener("load", setup);
+    window.addEventListener("resize", setup, false);
+
+    document.addEventListener("mousedown",whenMouseDown,false);
+    document.addEventListener("mouseup",whenMouseUp,false);
+    document.addEventListener("mousemove",whenMouseMove,false);
+    document.addEventListener("dblclick",handleDblClick,false);
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!--
+References:
+Lecture notes and downloads
+http://w3schools.invisionzone.com/index.php?showtopic=47665
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Car Options</title>
+  <link type="text/css" rel="stylesheet" href="car_options.css" />
+  <script>
+    function calculate() {
+      var num = 0;
+      var radios1 = document.getElementById("allLeft").con;
+      for (var i=0; i < radios1.length; i++) {
+        if (radios1[i].checked) {
+          var n = parseInt(radios1[i].value);
+          num = num + n;
+          break;
+        }
+      }
+      var radios2 = document.getElementById("allLeft").fo;
+      for (var i=0; i < radios2.length; i++) {
+        if (radios2[i].checked) {
+          var n = parseInt(radios2[i].value);
+          num = num + n;
+          break;
+        }
+      }
+      if (document.getElementById("allLeft").do1.checked)
+        num = num + 550;
+      if (document.getElementById("allLeft").do2.checked)
+        num = num + 399;
+      if (document.getElementById("allLeft").do3.checked)
+        num = num + 295;
+      var after = num % 1000;
+      var before = (num - after) / 1000;
+      document.getElementById("allLeft").T.value = "$" + before + "," + after + ".00";
+    }
+  </script>
+
+</head>
+
+<body>
+  <h1>Configure Your GT Super Sportscar</h1>
+  <form id="allLeft">
+    <div class="left">
+      <h2>Configuration</h2>
+      <table id="t1">
+      <tr>
+        <td><input type="radio" name="con" value="17790" /></td>
+        <td>GT Manual</td>
+        <td class="price">$17,790.00</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="con" value="18590"/></td>
+        <td>GT Automatic</td>
+        <td class="price">$18,590.00</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="con" value="22455"/></td>
+        <td>GT-S Manual</td>
+        <td class="price">$22,455.00</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="con" value="23155"/></td>
+        <td>GT-S Sportshift</td>
+        <td class="price">$23,155.00</td>
+      </tr>
+      </table>
+    </div>
+
+    <div class="left">
+      <h2>Factory Options</h2>
+      <table id="t2">
+        <tr>
+          <td><input type="radio" name="fo" value="1235" /></td>
+          <td>Option Combo #1</td>
+          <td class="price">$1235.00</td>
+        </tr>
+      </table>
+          <ul><li>Power Windows, Doors, Cruise Control</li></ul>
+      <table>
+        <tr>
+          <td><input type="radio" name="fo" value="3354"/></td>
+          <td>Option Combo #2</td>
+          <td class="price">$3354.00</td>
+        </tr>
+      </table>
+        <ul>
+          <li>Rear Spoiler and Fog Lamps</li>
+          <li>Keyless Entry</li>
+          <li>Power Tilt & Slide Moonroof</li>
+          <li>Power Windows, Doors, Cruise Control</li>
+        </ul>
+      <table>
+        <tr>
+          <td><input type="radio" name="fo" value="0"/></td>
+          <td>No Combo</td>
+          <td class="price0">$0</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="left">
+      <h2>Dealer Options</h2>
+      <table id="t3">
+      <tr>
+        <td><input type="checkbox" name="do1" value="550"/></td>
+        <td>CD Autochanger</td>
+        <td class="price3">$550.00</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="do2" value="399"/></td>
+        <td>VIP Security System</td>
+        <td class="price3">$399.00</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="do3" value="295"/></td>
+        <td>Auto-Dimming Mirror</td>
+        <td class="price3">$295.00</td>
+      </tr>
+      </table>
+    </div>
+
+    <div class="left">
+      <h2>Total Price</h2>
+        <div id="ttl">
+          <input type="text" size=20 name="T" />
+          <input type="button" id="totalButton" value="Calculate Total" onclick="calculate();" />
+        </div>
+    </div>
+  </form>
+
+  <div id="right">
+    <h2>Choose a color</h2>
+    <select size="5" id="chooseColor">
+        <option selected onclick="document.getElementById('photo').src = 'red.jpg';">Red</option>
+        <option onclick="document.getElementById('photo').src = 'silver.jpg';">Silver</option>
+        <option onclick="document.getElementById('photo').src = 'white.jpg';">White</option>
+        <option onclick="document.getElementById('photo').src = 'blue.jpg';">Blue</option>
+        <option onclick="document.getElementById('photo').src = 'black.jpg';">Black</option>
+    </select>
+    <img id="photo" src="red.jpg" alt="Car Photo">
+  </div>
+</body>
+</html>

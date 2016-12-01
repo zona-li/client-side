@@ -1,0 +1,92 @@
+<!--
+References:
+Lecture notes and downloads
+w3schools.com
+Piazza discussion regarding popup window
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Offices</title>
+  <script>
+    function showPage() {
+      if (document.getElementById("pulldown").selectedIndex == "1") {
+        var pop1 = window.open("", "mypop", "width=500, height=400");
+        pop1.document.writeln("<h1>Residential Education (ResEd)</h1><h3>725-2800</h3><p>The Office of Residential Education is responsible for developing the policies, programs, and staffing which support the intellectual, educational, and community-building activities in student residences.  Second Floor. </p>");
+        pop1.document.writeln("<img id='popupImg' src='resed.jpg' alt='ResEd' />");
+        pop1.document.writeln("<style>* {font-family: Helvetica, Arial, sans-serif;} h3, p {border: 1px solid white; width: 300px; float: left;}</style>");
+        pop1.focus();
+        pop1.document.close();
+      }
+      else if (document.getElementById("pulldown").selectedIndex == "2") {
+        var pop2 = window.open("", "mypop", "width=500, height=400");
+        pop2.document.writeln("<h1>Student Services Center</h1><h3>723-7772</h3><p>Visit the Student Services Center for assistance with university billing, financial aid disbursements, refunds, cash advances, payroll deductions, enrollment, Stanford degree policies & procedures, Stanford ID card, forms pickup & drop-off, and more..  Second floor.</p>");
+        pop2.document.writeln("<img id='popupImg' src='seal-small.gif' alt='Stanford Logo' />");
+        pop2.document.writeln("<style>* {font-family: Helvetica, Arial, sans-serif;} h3, p {border: 1px solid white; width: 300px; float: left;}</style>");
+        pop2.focus();
+        pop2.document.close();
+      }
+      else if (document.getElementById("pulldown").selectedIndex == "3") {
+        var pop3 = window.open("", "mypop", "width=500, height=400");
+        pop3.document.writeln("<h1>Office of Student Activities (OSA)</h1><h3>723-2733</h3><p>Services for student organizations, student-initiated major events and programs, and fraternities and sororities.  Second floor.</p>");
+        pop3.document.writeln("<img id='popupImg' src='seal-small.gif' alt='Stanford Logo' />");
+        pop3.document.writeln("<style>* {font-family: Helvetica, Arial, sans-serif;} h3, p {border: 1px solid white; width: 300px; float: left;}</style>");
+        pop3.focus();
+        pop3.document.close();
+      }
+      else if (document.getElementById("pulldown").selectedIndex == "4") {
+        var pop4 = window.open("", "mypop", "width=500, height=400");
+        pop4.document.writeln("<h1>Vice-Provost of Student Affairs</h1><h3>725-0911</h3><p>The Vice Provost for Student Affairs is responsible to the Provost for providing services and programs to undergraduate and graduate students in support of the academic mission of the University.  Second floor.</p>");
+        pop4.document.writeln("<img id='popupImg' src='seal-small.gif' alt='Stanford Logo' />");
+        pop4.document.writeln("<style>* {font-family: Helvetica, Arial, sans-serif;} h3, p {border: 1px solid white; width: 300px; float: left;}</style>");
+        pop4.focus();
+        pop4.document.close();
+      }
+    }
+  </script>
+  <style>
+    #all {
+      border: 1px solid white;
+      width: 640px;
+      height: 500px;
+      margin-left: 400px;
+
+    }
+    #text {
+      float: left;
+      width: 300px;
+      margin-left: 60px;
+    }
+    #banner {
+      margin-left: 60px;
+    }
+    #pulldown {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+
+  <body>
+    <div id="all">
+    <h1>
+      <img src="offices-bnr.gif" alt="Office Banner" id="banner"/>
+    </h1>
+    <div id="text">
+      <p>Tresidder Union houses a number of University Offices. Most of these offices are part of the Vice-Provost Student Affairs (VPSA) organization.</p>
+      <p>To learn more about an individual office in Tresidder, select the name of the office from the pulldown menu below:</p>
+      <select id="pulldown" onchange="showPage();">
+          <option selected="selected" value="alaska.html">Choose an Office</option>
+          <option>Residential Education (ResEd)</option>
+          <option>Student Services Center</option>
+          <option>Office of Student Activities (OSA)</option>
+          <option>Vice-Provost of Student Affairs</option>
+      </select>
+    </div>
+      <div id="seal">
+        <img src="seal.gif" alt="Seal" />
+      </div>
+    </div>
+  </body>
+</html>

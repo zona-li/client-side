@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Untitled Document</title>
+<style>
+
+#box {
+	background-color: red;
+	border: thin black solid;
+}
+
+#output {
+	font-size: 16pt;
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<p>clientX and clientY are relative to the top-left corner of the window, regardless of
+what you put the event handler on.</p>
+
+<p id="docOutput"></p>
+<p id="boxOutput"></p>
+<div id="box" style="position: absolute; left: 150px; top: 150px; width: 250px; height: 250px"></div>
+
+<script>
+
+function inBox(x,y) {
+	return (x >= getBoxLeft() && x <= getBoxLeft() + getBoxWidth()
+				&& y >= getBoxTop() && y <= getBoxTop() + getBoxHeight());
+}
+
+function handleDocumentMouseDown(evt) {
+	document.getElementById("docOutput").innerHTML =
+		"Handler on document<br />clientX = " + evt.clientX + "<br />"
+		   + "clientY = " + evt.clientY
+}
+
+function handleDivMouseDown(evt) {
+	document.getElementById("boxOutput").innerHTML =
+		"Handler on div<br />clientX = " + evt.clientX + "<br />"
+		   + "clientY = " + evt.clientY
+}
+
+/// SETUP FUNCTIONS
+
+document.addEventListener("mousedown",handleDocumentMouseDown,false);
+document.getElementById("box").addEventListener("mousedown",handleDivMouseDown,false);
+
+</script>
+</body>
+</html>
