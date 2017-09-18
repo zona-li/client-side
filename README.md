@@ -1,2 +1,2 @@
 # client-side
-This repo contains the homework assignments from Stanford class CS193C client-side technology.
+All the code in this repo are client-side - HTML, CSS, Javascript, Vue.js.
