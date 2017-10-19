@@ -3,6 +3,38 @@
 <head>
   <meta charset="utf-8">
   <style>
+
+	.transformed {
+		height: 50px;
+		width: 50px;
+		background-color: pink;
+		border: 2px solid purple;
+	}
+	.transformed:hover {
+		transition-duration: 1s;
+		transform: rotate(45deg);
+	}
+
+	@keyframes rainbowtext {
+		0%{
+			color: red;
+			font-size: 20px;
+		}
+		25%{
+			color: orange;
+		}
+		50%{
+			color: yellow;
+			font-size: 40px;
+		}
+		75%{
+			color: green;
+		}
+		100%{
+			color: blue;
+			font-size:20px;
+		}
+	}
   </style>
   <title>Using Vue.js</title>
   <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script> 
@@ -55,6 +87,20 @@
 			</todo-item>
 		</ol>
 	</div>
+
+	<p>------------------------------------- CSS Animation ----------------------------------------</p>
+
+
+	<div>
+		<p class="transformed">Hello</p>
+	</div>
+
+	<h3>Using Keyframe to do animation: </h3>
+
+	<p>hello</p>
+
+
+
 
 	<script type="text/javascript">
 		var app = new Vue({
