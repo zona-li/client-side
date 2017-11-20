@@ -69,6 +69,70 @@ function bestSellingAlbum(x) {
 // Thanks to ES6, this is is equal to
 const bestSellingAlbum = (x) => albumList.filter(album => album.sales >= x);
 
+// In OOP, closures make working with objects and data easier:
+function count() {
+	var x = 0;
+	return {
+		increment: function() { ++x; },
+		decrement: function() { --x; },
+		get: function() { return x; },
+		reset: function() { x = 0; }
+	}
+}
+
+// Passing values and parameters into an algorithm:
+function proximity_sort(arr, midpoint) {
+	return arr.sort(function(x, y) { x -= midpoint; y -= midpoint; return x*x - y*y; });
+}
+
+
+// Namespacing private functions:
+// JS can emulate the functionality of declaring method as either public or private via closures.
+
+var houseRent = (function() {
+	var rent = 100000;
+	function changeBy(amount) {
+		rent += amount;
+	}
+	return {
+		raise: function() {
+			changeBy(10000);
+		},
+		lower: function() {
+			changeBy(-10000);
+		},
+		currentAmount: function() {
+			return rent;
+		}
+	};
+})();
+
+alert(houseRent.currentAmount());	// $100,000
+houseRent.lower();
+alert(houseRent.currentAmount());	// $90,000
+houseRent.changeBy(2000);	// TypeError: undefined is not a function
+
+
+
+// Map
+Array.prototype.map = function(callback) {
+	arr = [];
+	for (var i = 0; i < this.length; i++)
+		arr.push(callback(this[i],i,this));
+	return arr;
+};
+
+// Filter
+Array.prototype.filter = function(callback, context) {
+	arr = [];
+	for (var i = 0; i < this.length; i++) {
+		if(callback.call(context, this[i], i, this))
+			arr.push(this[i]);
+	}
+	return arr;
+};
+
+
 
 
 
